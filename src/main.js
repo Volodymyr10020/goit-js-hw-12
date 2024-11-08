@@ -68,27 +68,3 @@ function scrollToNewImages() {
     behavior: 'smooth',
   });
 }
-
-async function loadImages() {
-  showLoader();
-  try {
-    const data = await fetchImages(query, page);
-    totalHits = data.totalHits;
-    if (data.hits.length === 0) {
-      iziToast.info({ title: 'No Results', message: 'No images found.' });
-      return;
-    }
-    renderImages(data.hits);
-    if (!lightbox) {
-      lightbox = new SimpleLightbox('.gallery a');
-    } else {
-      lightbox.refresh();
-    }
-    scrollToNewImages();
-    toggleLoadMoreButton(page * 15 < totalHits);
-  } catch (error) {
-    iziToast.error({ title: 'Error', message: 'Failed to load images.' });
-  } finally {
-    hideLoader();
-  }
-}
