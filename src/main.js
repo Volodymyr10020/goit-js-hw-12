@@ -8,7 +8,6 @@ import {
   renderImages,
   clearGallery,
   showLoader,
-  hideLoader,
   toggleLoadMoreButton,
 } from './js/render-functions.js';
 

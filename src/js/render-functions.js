@@ -17,11 +17,10 @@ export function clearGallery() {
 }
 
 export function showLoader() {
-  document.querySelector('.loader').classList.add('visible');
-}
-
-export function hideLoader() {
-  document.querySelector('.loader').classList.remove('visible');
+  const loader = document.querySelector('.loader');
+  if (loader) {
+    loader.classList.remove('visible');
+  }
 }
 
 export function toggleLoadMoreButton(show) {
