@@ -51,19 +51,30 @@ async function loadImages() {
     } else {
       lightbox.refresh();
     }
-    toggleLoadMoreButton(page * 15 < totalHits);
+    scrollToNewImages();
+
+    if (page * 15 >= totalHits) {
+      toggleLoadMoreButton(false);
+      iziToast.info({
+        message: "We're sorry, but you've reached the end of search results.",
+      });
+    } else {
+      toggleLoadMoreButton(true);
+    }
   } catch (error) {
     iziToast.error({ title: 'Error', message: 'Failed to load images.' });
   } finally {
     hideLoader();
   }
 }
+
 function scrollToNewImages() {
-  const { height: cardHeight } = document
-    .querySelector('.gallery a')
-    .getBoundingClientRect();
-  window.scrollBy({
-    top: cardHeight * 2,
-    behavior: 'smooth',
-  });
+  const galleryItems = document.querySelectorAll('.gallery a');
+  if (galleryItems.length > 0) {
+    const { height: cardHeight } = galleryItems[0].getBoundingClientRect();
+    window.scrollBy({
+      top: cardHeight * 2,
+      behavior: 'smooth',
+    });
+  }
 }
